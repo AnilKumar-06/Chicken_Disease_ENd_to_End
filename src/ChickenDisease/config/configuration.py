@@ -2,8 +2,7 @@ from ChickenDisease.constants import *
 import os
 from pathlib import Path
 from ChickenDisease.utils.common import read_yaml, create_directories
-from ChickenDisease.entity.entity_config import DataIngestionConfig
-                                            # BaseModelConfig,
+from ChickenDisease.entity.entity_config import DataIngestionConfig,BaseModelConfig
                                             # CallbacksConfig,
                                             # TrainingConfig,
                                             # EvaluationConfig,)
@@ -32,20 +31,23 @@ class ConfigurationManager:
         )
         return data_ingestion_config
     
-    # def get_prepared_base_model_config(self) ->BaseModelConfig:
-    #     config = self.config.prepared_base_model
+    def get_base_model_config(self) ->BaseModelConfig:
+        config = self.config.prepare_base_model
+        create_directories([config.root_dir])
+        p=10
+        print(p)
         
-    #     create_directories([config.root_dir])
-
-    #     prepared_base_model_config = BaseModelConfig(
-    #         root_dir=Path(config.root_dir),
-    #         base_model_path=Path(config.base_model_path),
-    #         updated_base_model_path = Path(config.updated_base_model_path),
-    #         params_image_size = self.params.IMAGE_SIZE,
-    #         params_learning_rate = self.params.LEARNING_RATE,
-    #         params_include_top=self.params.INCLUDE_TOP,
-    #         params_weights=self.params.WEIGHTS,
-    #         params_classes=self.params.CLASSES
+        base_model_config = BaseModelConfig(
+            root_dir=Path(config.root_dir),
+            base_model_path=Path(config.base_model_path),
+            updated_base_model_path=Path(config.updated_base_model_path),
+            params_image_size=self.params.IMAGE_SIZE,
+            params_learning_rate=self.params.LEARNING_RATE,
+            params_include_top=self.params.INCLUDE_TOP,
+            params_weights=self.params.WEIGHTS,
+            params_classes=self.params.CLASSES
+            )
+        return base_model_config
             
     #     )
         
